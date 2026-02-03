@@ -1,0 +1,60 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name'
+        required: true
+      email:
+        description: 'Email'
+        required: true
+      cv_link:
+        description: 'CV Link'
+        required: true
+      repo_link:
+        description: 'Repo Link'
+        required: true
+      secret:
+        description: 'Secret for b21'
+        required: true
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Run python
+        id: python_script
+        env:
+          USER_NAME: ${{ github.event.inputs.name }}
+          USER_EMAIL: ${{ github.event.inputs.email }}
+          CV_LINK: ${{ github.event.inputs.cv_link }}
+          REPO_LINK: ${{ github.event.inputs.repo_link}}
+          SECRET: ${{ github.event.inputs.secret}}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          python main.py call-api
+      - name: Check result
+        if: success()
+        run: |
+          RESULT="${{ steps.python_script.outputs.result }}"
+          echo "Result: $RESULT"
