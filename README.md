@@ -4,7 +4,7 @@ A flexible GitHub Action to execute Python commands or scripts within your CI/CD
 
 ## 📂 File Structure
 
-This repository follows a standard Docker-containerized GitHub Action structure:
+This repository follows a standard GitHub Action structure:
 
 ```text
 .
