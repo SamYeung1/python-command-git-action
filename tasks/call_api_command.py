@@ -7,12 +7,12 @@ from datetime import datetime, timezone
 
 from tasks.base.command import Command
 
-NAME = os.environ.get("USER_NAME",'test')
-EMAIL = os.environ.get("USER_EMAIL",'test')
-RESUME_LINK = os.environ.get("CV_LINK",'test')
-REPO_LINK = os.environ.get("REPO_LINK",'test')
-SECRET = os.environ.get("SECRET",'test')
-RUN_ID = os.environ.get("RUN_ID",'test')
+NAME = os.environ.get("USER_NAME")
+EMAIL = os.environ.get("USER_EMAIL")
+RESUME_LINK = os.environ.get("CV_LINK")
+REPO_LINK = os.environ.get("REPO_LINK")
+SECRET = os.environ.get("SECRET")
+RUN_ID = os.environ.get("RUN_ID")
 
 
 class CallAPICommand(Command):
